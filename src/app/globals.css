@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
+@theme {
+  /* TECHNICAL CYBER GREEN COLOR SYSTEM */
+  --color-cyber-bg: #050807;
+  --color-cyber-card: #0A110D;
+  --color-cyber-surface: #0E1813;
+  --color-emerald-primary: #10B981;
+  --color-emerald-bright: #34D399;
+  --color-emerald-mint: #6EE7B7;
+  --color-emerald-deep: #047857;
+  --color-emerald-dark: #022c22;
+  --color-border-green: #064e3b;
+  --color-text-bright: #F4FBF7;
+  --color-text-muted: #6EE7B7;
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-space-grotesk), var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --default-ease: cubic-bezier(0.83, 0, 0.17, 1);
+  --bg-primary: #050807;
+  --bg-secondary: #0A110D;
+  --bg-card: #0E1813;
+  --border-color: #064e3b;
+  --text-primary: #F4FBF7;
+  --text-secondary: #34D399;
+  --accent-primary: #10B981;
+  --accent-secondary: #047857;
+  --accent-cyan: #6EE7B7;
+  --nav-surface: #0A110D;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: #050807;
+  color: #F4FBF7;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #050807;
+  color: #F4FBF7;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
 }
+
+::selection {
+  background: #059669;
+  color: #FFFFFF;
+}
+
+/* Subtle Technical Cyber Green Grid */
+.bg-tech-grid-green {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.09) 1px, transparent 1px);
+}
+
+.glass-card-green {
+  background: rgba(10, 17, 13, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050807;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #064e3b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10B981;
+}
+
+/* Nabil Issa signature cubic-bezier transitions */
+.transition-nabil {
+  transition-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+  transition-duration: 0.6s;
+}
+
+/* ── COMPLETE SUPPRESSION OF DEV INDICATOR & ISSUE OVERLAYS ── */
+nextjs-portal,
+#nextjs-dev-overlay,
+[data-nextjs-toast],
+[data-nextjs-dialog-header],
+[data-nextjs-portal],
+[data-nextjs-dev-indicator],
+[data-nextjs-dev-tools],
+div[data-nextjs-toast-wrapper],
+div[data-nextjs-dialog],
+aside[aria-label="Next.js Dev Tools"],
+div[data-issue-badge] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -99999px !important;
+  top: -99999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  max-width: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  z-index: -9999 !important;
+}
+
