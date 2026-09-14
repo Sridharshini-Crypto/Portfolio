@@ -86,22 +86,41 @@ export function ContactForm() {
       </div>
 
       {formState === 'success' ? (
-        <div className="p-6 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-center space-y-3 animate-fade-in">
-          <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-[0_0_12px_rgba(16,185,129,0.3)]">
-            <CheckCircle className="w-5 h-5 text-white" />
+        <div className="p-6 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-center space-y-4 animate-fade-in">
+          <div className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+            <CheckCircle className="w-6 h-6 text-white" />
           </div>
-          <h4 className="font-heading font-bold text-white">
-            Transmission Confirmed
+          <h4 className="font-heading font-bold text-base text-white">
+            Transmission Recorded Successfully!
           </h4>
-          <p className="text-xs text-emerald-300/85 max-w-sm mx-auto">
-            Thank you for reaching out. Sridharshini has received your dispatch and will respond promptly.
+          <p className="text-xs text-emerald-300/90 max-w-md mx-auto leading-relaxed">
+            Thank you for reaching out. Your dispatch has been transmitted to Sridharshini&apos;s verified inbox.
           </p>
-          <button
-            onClick={() => setFormState('idle')}
-            className="px-4 py-1.5 rounded-lg bg-[#0E1813] border border-emerald-500/30 text-xs font-mono text-emerald-300 hover:bg-emerald-950/40 cursor-pointer"
-          >
-            Send Another Dispatch
-          </button>
+
+          {/* Quick Confirmation Actions */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
+            <a
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profileData.socials.email)}&su=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(
+                `From: ${formData.name} (${formData.email})\n\nMessage:\n${formData.message}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => soundFX.playClick()}
+              className="px-3.5 py-2 rounded-xl bg-[#0E1813] hover:bg-emerald-900/60 border border-emerald-500/40 text-xs font-mono text-emerald-300 hover:text-white transition-all"
+            >
+              Open Direct Copy in Gmail ↗
+            </a>
+
+            <button
+              onClick={() => {
+                setFormState('idle');
+                setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
+              }}
+              className="px-3.5 py-2 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-xs font-mono text-emerald-400 hover:text-white cursor-pointer"
+            >
+              Send Another Message
+            </button>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -178,29 +197,70 @@ export function ContactForm() {
           </div>
 
           {formState === 'error' && (
-            <div className="p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/40 flex items-center gap-2 text-xs font-mono text-emerald-300">
-              <AlertTriangle className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>{errorMessage}</span>
+            <div className="p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-between gap-2 text-xs font-mono text-emerald-300">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>{errorMessage}</span>
+              </div>
+              <a
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profileData.socials.email)}&su=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(
+                  `From: ${formData.name} (${formData.email})\n\nMessage:\n${formData.message}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white underline font-bold whitespace-nowrap ml-2"
+              >
+                Send via Gmail ↗
+              </a>
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={formState === 'submitting'}
-            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#047857] to-[#10B981] hover:brightness-110 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 shadow-[0_0_14px_rgba(16,185,129,0.3)] transition-all cursor-pointer disabled:opacity-50"
-          >
-            {formState === 'submitting' ? (
-              <>
-                <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                <span>DISPATCHING TELEMETRY...</span>
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                <span>DISPATCH MESSAGE</span>
-              </>
-            )}
-          </button>
+          <div className="space-y-2 pt-1">
+            <button
+              type="submit"
+              disabled={formState === 'submitting'}
+              className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#047857] via-[#059669] to-[#10B981] hover:brightness-110 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(16,185,129,0.35)] transition-all cursor-pointer disabled:opacity-50"
+            >
+              {formState === 'submitting' ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                  <span>DISPATCHING TELEMETRY...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4 text-white" />
+                  <span>DISPATCH MESSAGE</span>
+                </>
+              )}
+            </button>
+
+            {/* Direct Instant Channels Fallback bar */}
+            <div className="flex items-center justify-between text-[10px] font-mono text-emerald-400/80 pt-1 px-1">
+              <span>DIRECT DISPATCH CHANNELS:</span>
+              <div className="flex items-center gap-3">
+                <a
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profileData.socials.email)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFX.playClick()}
+                  className="hover:text-white underline"
+                >
+                  Gmail Web ↗
+                </a>
+                <a
+                  href={`https://wa.me/${profileData.socials.whatsappNumber}?text=${encodeURIComponent(
+                    profileData.defaultWhatsAppMessage
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFX.playClick()}
+                  className="hover:text-white underline text-emerald-300 font-bold"
+                >
+                  WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </div>
         </form>
       )}
     </div>
