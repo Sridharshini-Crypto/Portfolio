@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://sridharshini.vercel.app'),
   title: 'Sridharshini S | Computer Science & Cyber Security Student',
   description:
     'Portfolio of Sridharshini S, a Computer Science and Engineering student specializing in Cyber Security at Chennai Institute of Technology. Exploring cybersecurity, networking, artificial intelligence, and software development.',
