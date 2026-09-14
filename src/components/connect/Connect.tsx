@@ -67,28 +67,18 @@ export function Connect() {
               {profileData.socials.email}
             </div>
 
-            {/* Direct 1-Click Launch Buttons */}
-            <div className="grid grid-cols-2 gap-2 pt-1">
+            {/* Direct 1-Click Launch Button */}
+            <div className="pt-1">
               <a
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profileData.socials.email)}&su=${encodeURIComponent('Technical Collaboration Inquiry — Sridharshini S')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => soundFX.playClick()}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[#0E1813] hover:bg-emerald-950/70 border border-emerald-500/35 hover:border-emerald-400 text-emerald-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer text-center font-semibold shadow-xs"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0E1813] hover:bg-emerald-950/70 border border-emerald-500/35 hover:border-emerald-400 text-emerald-300 hover:text-white text-xs font-mono transition-all cursor-pointer font-semibold shadow-xs"
                 title="Open directly in Gmail Web"
               >
-                <span>GMAIL WEB</span>
-                <ExternalLink className="w-3 h-3 text-emerald-400" />
-              </a>
-
-              <a
-                href={`mailto:${profileData.socials.email}?subject=Technical%20Collaboration%20Inquiry%20-%20Sridharshini%20S`}
-                onClick={() => soundFX.playClick()}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[#0E1813] hover:bg-emerald-950/70 border border-emerald-500/35 hover:border-emerald-400 text-emerald-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer text-center font-semibold shadow-xs"
-                title="Launch Default Desktop Mail App"
-              >
-                <span>MAIL CLIENT</span>
-                <ExternalLink className="w-3 h-3 text-emerald-400" />
+                <span>OPEN IN GMAIL WEB</span>
+                <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
               </a>
             </div>
           </div>
