@@ -86,43 +86,11 @@ export function MeetSridharshini({
   };
 
   return (
-    <section className="relative min-h-[95vh] sm:min-h-screen flex items-center justify-center px-4 sm:px-8 py-16 sm:py-24 text-[#F4FBF7] overflow-hidden">
-      {/* Pumping & Holographic Transition Keyframes */}
-      <style jsx>{`
-        @keyframes biometricPumping {
-          0%, 100% {
-            transform: scale(1);
-            filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
-          }
-          50% {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 35px rgba(52, 211, 153, 0.95)) drop-shadow(0 0 60px rgba(16, 185, 129, 0.7));
-          }
-        }
-        @keyframes revealSnap {
-          0% {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 35px rgba(52, 211, 153, 0.9));
-          }
-          100% {
-            transform: scale(1);
-            filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.3));
-          }
-        }
-        .biometric-pumping {
-          animation: biometricPumping 0.6s ease-in-out infinite;
-          transform-origin: left center;
-        }
-        .reveal-snapped {
-          animation: revealSnap 0.6s cubic-bezier(0.83, 0, 0.17, 1) forwards;
-          transform-origin: left center;
-        }
-      `}</style>
-
+    <section className="relative min-h-[95vh] sm:min-h-screen flex items-center justify-center px-2 sm:px-6 py-12 sm:py-20 text-[#F4FBF7] overflow-hidden w-full">
       {/* Background Ambient Cyber Green Glow */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 sm:w-[560px] sm:h-[560px] bg-emerald-500/20 rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center z-10">
+      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center z-10">
         
         {/* ── LEFT SIDE: IDENTITY TYPOGRAPHY & CREDENTIALS (COL 7) ── */}
         <div className="lg:col-span-7 space-y-6 text-left flex flex-col justify-center">

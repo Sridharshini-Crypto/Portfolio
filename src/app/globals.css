@@ -95,30 +95,37 @@ body {
   transition-duration: 0.6s;
 }
 
-/* ── COMPLETE SUPPRESSION OF DEV INDICATOR & ISSUE OVERLAYS ── */
-nextjs-portal,
-#nextjs-dev-overlay,
-[data-nextjs-toast],
-[data-nextjs-dialog-header],
-[data-nextjs-portal],
-[data-nextjs-dev-indicator],
-[data-nextjs-dev-tools],
-div[data-nextjs-toast-wrapper],
-div[data-nextjs-dialog],
-aside[aria-label="Next.js Dev Tools"],
-div[data-issue-badge] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  position: absolute !important;
-  left: -99999px !important;
-  top: -99999px !important;
-  width: 0 !important;
-  height: 0 !important;
-  max-width: 0 !important;
-  max-height: 0 !important;
-  overflow: hidden !important;
-  z-index: -9999 !important;
+/* ── BIOMETRIC PUMPING & REVEAL KEYFRAMES ── */
+@keyframes biometricPumping {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 35px rgba(52, 211, 153, 0.95)) drop-shadow(0 0 60px rgba(16, 185, 129, 0.7));
+  }
 }
+
+@keyframes revealSnap {
+  0% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 35px rgba(52, 211, 153, 0.9));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.3));
+  }
+}
+
+.biometric-pumping {
+  animation: biometricPumping 0.6s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.reveal-snapped {
+  animation: revealSnap 0.6s cubic-bezier(0.83, 0, 0.17, 1) forwards;
+  transform-origin: left center;
+}
+
 

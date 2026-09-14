@@ -191,7 +191,12 @@ export default function HomePage() {
       {/* ── PAGE CONTENT ORCHESTRATION ── */}
       <div className="relative z-10">
         {/* ── STAGE 3: MEET SRIDHARSHINI (SECOND LANDING PAGE / IDENTITY REVEAL) ── */}
-        <div className="min-h-screen flex items-center justify-center">
+        <div
+          id="identity"
+          className={`min-h-screen flex items-center justify-center transition-all duration-300 ${
+            inPortfolio ? 'md:pl-56 lg:pl-60 pr-4 sm:pr-6' : ''
+          }`}
+        >
           <MeetSridharshini
             isActive={gateCompleted}
             onEnterPortfolio={handleEnterPortfolioFromIdentity}
