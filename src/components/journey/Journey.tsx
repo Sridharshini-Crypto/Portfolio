@@ -127,13 +127,13 @@ const journeyPanels: JourneyPanel[] = [
     number: '07',
     verticalLabel: 'FOUNDATION // 07',
     badge: 'SCHOLASTIC // 97% HSC',
-    title: 'ACADEMIC DISTINCTION & DISTRICT CHESS',
-    organization: 'STATE BOARD (97% HSC / 95% SSLC) & DISTRICT CHESS',
+    title: 'SCHOOL 1ST RANK & DISTRICT CHESS',
+    organization: 'SCHOOL 1ST RANK (97% HSC / 95% SSLC) & DISTRICT CHESS',
     metric: '97% HSC • 95% SSLC',
     period: 'Foundational',
     description: 'Mathematical rigor, strategic foresight, and multi-move analytical calculation through competitive chess.',
     highlights: [
-      '97% distinction in Class XII (HSC) & 95% in Class X (SSLC) state boards',
+      'School 1st Rank with 97% in Class XII (HSC) & 95% in Class X (SSLC)',
       'District-level chess player applying positional calculation to threat modeling',
     ],
     capabilities: ['Strategic Foresight', 'Mathematics', 'Positional Analysis', 'Rigor'],
@@ -218,7 +218,7 @@ export function Journey({ onOpenProject }: JourneyProps) {
             <div className="p-4 sm:p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/30 text-center space-y-1 shadow-xs hover:border-emerald-400/60 transition-colors flex flex-col justify-center">
               <div className="text-xs font-mono text-emerald-400/80">CLASS XII (HSC)</div>
               <div className="text-3xl sm:text-4xl font-heading font-extrabold text-white">97%</div>
-              <div className="text-xs font-mono text-emerald-400 font-medium">State Distinction</div>
+              <div className="text-xs font-mono text-emerald-400 font-medium">School 1st Rank</div>
             </div>
 
             <div className="p-4 sm:p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/30 text-center space-y-1 shadow-xs hover:border-emerald-400/60 transition-colors flex flex-col justify-center">

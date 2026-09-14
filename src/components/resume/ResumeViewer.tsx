@@ -147,7 +147,7 @@ export function ResumeViewer({ isOpen, onClose }: ResumeViewerProps) {
                   Higher Secondary (Class XII)
                 </div>
                 <div className="text-[11px] text-emerald-400/75">
-                  Mathematics & Science Distinction
+                  School 1st Rank • Mathematics & Science
                 </div>
               </div>
 
@@ -161,7 +161,7 @@ export function ResumeViewer({ isOpen, onClose }: ResumeViewerProps) {
                   Secondary School (Class X)
                 </div>
                 <div className="text-[11px] text-emerald-400/75">
-                  Secondary School Distinction
+                  School 1st Rank • Secondary School
                 </div>
               </div>
             </div>
