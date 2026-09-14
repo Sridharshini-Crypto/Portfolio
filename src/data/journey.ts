@@ -63,9 +63,9 @@ export const journeyMilestones: JourneyMilestone[] = [
       value: '95%',
     },
     description:
-      'Completed secondary education with 95% aggregate distinction, establishing foundational mathematical reasoning and strategic aptitude.',
+      'Completed secondary education achieving School 1st Rank with 95% aggregate, establishing foundational mathematical reasoning and analytical excellence.',
     details: [
-      'Secured 95% aggregate distinction in secondary school board examinations.',
+      'Secured School 1st Rank and 95% aggregate in secondary school examinations.',
       'Active participant in science forums, student leadership, and chess championships.',
     ],
     skillsGained: ['Foundational Mathematics', 'Scientific Inquiry', 'Strategic Thinking'],

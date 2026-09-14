@@ -224,7 +224,7 @@ export function Journey({ onOpenProject }: JourneyProps) {
             <div className="p-4 sm:p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/30 text-center space-y-1 shadow-xs hover:border-emerald-400/60 transition-colors flex flex-col justify-center">
               <div className="text-xs font-mono text-emerald-400/80">CLASS X (SSLC)</div>
               <div className="text-3xl sm:text-4xl font-heading font-extrabold text-white">95%</div>
-              <div className="text-xs font-mono text-emerald-400 font-medium">Board Distinction</div>
+              <div className="text-xs font-mono text-emerald-400 font-medium">School 1st Rank</div>
             </div>
 
             <div className="p-4 sm:p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/30 text-center space-y-1 shadow-xs hover:border-emerald-400/60 transition-colors flex flex-col justify-center">
