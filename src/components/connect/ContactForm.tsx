@@ -62,7 +62,7 @@ export function ContactForm() {
         soundFX.playVaultUnlock();
         setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
       } else {
-        setErrorMessage(data.error || 'Unable to transmit message. Please launch your mail client directly.');
+        setErrorMessage(data.error || 'Unable to transmit message. Please contact directly via Gmail or WhatsApp.');
         setFormState('error');
       }
     } catch {
