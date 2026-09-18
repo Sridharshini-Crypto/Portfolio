@@ -137,10 +137,10 @@ export function MeetSridharshini({
                   : 'text-4xl sm:text-6xl md:text-7xl text-white'
               }`}
             >
-              <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} />
+              <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} triggerOnMount={true} triggerKey={phase} />
             </h1>
             <div className="text-lg sm:text-2xl font-mono text-emerald-300 font-medium pt-1">
-              Cybersecurity · Applied AI · Full-Stack Engineer
+              <ScrambleText text="Cybersecurity · Applied AI · Full-Stack Engineer" triggerOnHover={true} scrambleSpeed={18} />
             </div>
           </div>
 

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { soundFX } from '@/lib/audio';
 
-const CYBER_GLYPHS = '!<>-_\\/[]{}—=+*^?#_0101AX';
+const CYBER_GLYPHS = '01#$!<>-_/[]{}*^?~@&%¥§∆Ω';
 
 interface ScrambleTextProps {
   text: string;
@@ -11,29 +11,31 @@ interface ScrambleTextProps {
   scrambleSpeed?: number;
   triggerOnHover?: boolean;
   triggerOnMount?: boolean;
+  triggerKey?: any;
   playAudioOnScramble?: boolean;
 }
 
 export function ScrambleText({
   text,
   className = '',
-  scrambleSpeed = 28,
+  scrambleSpeed = 30,
   triggerOnHover = true,
   triggerOnMount = false,
+  triggerKey,
   playAudioOnScramble = true,
 }: ScrambleTextProps) {
   const [displayText, setDisplayText] = useState(text);
   const [isScrambling, setIsScrambling] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isRunningRef = useRef(false);
 
   const startScramble = useCallback(() => {
-    if (isScrambling) return;
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    isRunningRef.current = true;
     setIsScrambling(true);
 
     let iteration = 0;
     const maxIterations = text.length;
-
-    if (intervalRef.current) clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
       setDisplayText(() => {
@@ -49,20 +51,22 @@ export function ScrambleText({
           .join('');
       });
 
-      if (playAudioOnScramble && Math.random() > 0.4) {
+      if (playAudioOnScramble && Math.random() > 0.45) {
         soundFX.playScrambleDecryption();
       }
 
       if (iteration >= maxIterations) {
         if (intervalRef.current) clearInterval(intervalRef.current);
         setDisplayText(text);
+        isRunningRef.current = false;
         setIsScrambling(false);
       }
 
-      iteration += 1 / 2.5;
+      iteration += 1 / 2.2;
     }, scrambleSpeed);
-  }, [text, isScrambling, playAudioOnScramble, scrambleSpeed]);
+  }, [text, playAudioOnScramble, scrambleSpeed]);
 
+  // Trigger on mount if requested
   useEffect(() => {
     if (triggerOnMount) {
       startScramble();
@@ -71,6 +75,13 @@ export function ScrambleText({
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [triggerOnMount, startScramble]);
+
+  // Trigger whenever triggerKey changes
+  useEffect(() => {
+    if (triggerKey !== undefined) {
+      startScramble();
+    }
+  }, [triggerKey, startScramble]);
 
   const handleMouseEnter = () => {
     if (triggerOnHover) {
@@ -81,7 +92,10 @@ export function ScrambleText({
   return (
     <span
       onMouseEnter={handleMouseEnter}
-      className={`${className} ${isScrambling ? 'font-mono select-none tracking-wider' : ''} transition-colors inline-block`}
+      className={`inline-block transition-all duration-150 cursor-pointer ${
+        isScrambling ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.85)] tracking-wider' : ''
+      } ${className}`}
+      title={triggerOnHover ? 'Hover to decrypt' : undefined}
     >
       {displayText}
     </span>
@@ -89,4 +103,3 @@ export function ScrambleText({
 }
 
 export default ScrambleText;
-
