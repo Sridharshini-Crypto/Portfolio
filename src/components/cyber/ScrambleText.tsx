@@ -19,7 +19,7 @@ interface ScrambleTextProps {
 export function ScrambleText({
   text,
   className = '',
-  scrambleSpeed = 16,
+  scrambleSpeed = 24,
   triggerOnHover = true,
   triggerOnMount = false,
   triggerKey,
@@ -62,8 +62,8 @@ export function ScrambleText({
 
     let iteration = 0;
     const maxIterations = text.length;
-    // Dynamic step so that any text length finishes in ~180-220ms
-    const step = Math.max(1, text.length / 10);
+    // Step calibrated for ~450ms smooth cyber decryption
+    const step = Math.max(0.6, text.length / 22);
 
     intervalRef.current = setInterval(() => {
       setDisplayText(() => {
@@ -79,7 +79,7 @@ export function ScrambleText({
           .join('');
       });
 
-      if (playAudioOnScramble && Math.random() > 0.6) {
+      if (playAudioOnScramble && Math.random() > 0.5) {
         soundFX.playScrambleDecryption();
       }
 
@@ -122,7 +122,7 @@ export function ScrambleText({
   return (
     <span
       onMouseEnter={handleMouseEnter}
-      className={`inline-block transition-colors duration-100 ${
+      className={`inline-block transition-colors duration-150 ${
         isScrambling || isDecryptedInSync
           ? 'text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.85)] font-mono tracking-wider'
           : ''
