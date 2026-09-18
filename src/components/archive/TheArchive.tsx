@@ -6,6 +6,7 @@ import { certificationsData } from '@/data/certifications';
 import { CertificateModal } from './CertificateModal';
 import { Certification } from '@/types';
 import { soundFX } from '@/lib/audio';
+import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 export function TheArchive() {
   const [filter, setFilter] = useState<'all' | 'cybersecurity' | 'networking' | 'ai' | 'programming'>('all');
@@ -43,7 +44,7 @@ export function TheArchive() {
             </span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-            ALWAYS LEARNING
+            <ScrambleText text="ALWAYS LEARNING" triggerOnHover={true} />
           </h2>
           <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
             Verified credentials from Chennai Institute of Technology (CIT), Cisco Networking Academy, and Python Institute.

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, ArrowRight, Shield } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
+import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 interface ProfessionalExperience {
   id: string;
@@ -79,7 +80,7 @@ export function Experience() {
         </div>
         <div className="space-y-1.5">
           <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-            EXPERIENCE & LEADERSHIP
+            <ScrambleText text="EXPERIENCE & LEADERSHIP" triggerOnHover={true} />
           </h2>
           <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
             Production software engineering, technical leadership at CIT, and hands-on systems instruction.

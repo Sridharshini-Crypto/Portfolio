@@ -7,6 +7,7 @@ import { ContactForm } from './ContactForm';
 import { profileData } from '@/data/profile';
 import { getWhatsAppLink, copyToClipboard } from '@/lib/utils';
 import { soundFX } from '@/lib/audio';
+import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 export function Connect() {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -37,7 +38,7 @@ export function Connect() {
           </span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-          CONNECT & COLLABORATE
+          <ScrambleText text="CONNECT & COLLABORATE" triggerOnHover={true} />
         </h2>
         <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
           Open for engineering discussions, aerospace digital twin research, cybersecurity collaborations, and high-assurance systems.
