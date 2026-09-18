@@ -7,7 +7,6 @@ import { ContactForm } from './ContactForm';
 import { profileData } from '@/data/profile';
 import { getWhatsAppLink, copyToClipboard } from '@/lib/utils';
 import { soundFX } from '@/lib/audio';
-import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 export function Connect() {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -38,7 +37,7 @@ export function Connect() {
           </span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-          <ScrambleText text="CONNECT & COLLABORATE" triggerOnHover={true} />
+          CONNECT & COLLABORATE
         </h2>
         <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
           Open for engineering discussions, aerospace digital twin research, cybersecurity collaborations, and high-assurance systems.
@@ -52,9 +51,7 @@ export function Connect() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
                 <Mail className="w-4 h-4 text-emerald-400" />
-                <span>
-                  <ScrambleText text="PRIMARY EMAIL DISPATCH" triggerOnHover={true} />
-                </span>
+                <span>PRIMARY EMAIL DISPATCH</span>
               </div>
               <button
                 onClick={handleCopyEmail}

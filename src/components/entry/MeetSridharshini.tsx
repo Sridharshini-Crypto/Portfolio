@@ -223,6 +223,7 @@ export function MeetSridharshini({
             {/* Center Portrait Visual with Holographic De-Masking Scan */}
             <div
               onClick={startDeMaskSequence}
+              title="Click to replay identity de-masking scan"
               className="relative z-10 my-4 flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-[#08130C] via-[#050807] to-[#030805] border border-emerald-500/30 p-3 pt-4 cursor-pointer hover:border-emerald-400/60 transition-colors"
             >
               {/* Subtle Tech Grid inside image container */}
@@ -322,6 +323,7 @@ export function MeetSridharshini({
               {/* Interactive Replay Scan Trigger */}
               <button
                 onClick={startDeMaskSequence}
+                title="Replay Identity De-Masking Scan"
                 className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-300 hover:text-white bg-emerald-950/80 hover:bg-emerald-900/90 px-2.5 py-1 rounded border border-emerald-500/40 transition-all cursor-pointer group/btn"
               >
                 <RefreshCw className="w-3 h-3 text-emerald-400 group-hover/btn:rotate-180 transition-transform duration-500" />

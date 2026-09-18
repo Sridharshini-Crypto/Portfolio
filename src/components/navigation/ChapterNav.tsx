@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { soundFX } from '@/lib/audio';
 import { profileData } from '@/data/profile';
-import { ScrambleText } from '@/components/cyber/ScrambleText';
 import {
   FileText,
   RotateCcw,
@@ -141,7 +140,7 @@ export function ChapterNav({
             {/* Identity Label Footer */}
             <div className="pt-1 text-center space-y-0.2 relative z-10">
               <div className="font-heading font-extrabold text-xs text-white tracking-tight group-hover:text-emerald-300 transition-colors truncate">
-                <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} />
+                SRIDHARSHINI S
               </div>
               <div className="font-mono text-[9px] text-emerald-400/90 font-medium truncate">
                 Cybersecurity Student

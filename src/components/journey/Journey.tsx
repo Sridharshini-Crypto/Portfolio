@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { CheckCircle2, ArrowRight, ChevronRight, ChevronDown } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
-import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 interface JourneyProps {
   onOpenProject?: (projectId: string) => void;
@@ -166,7 +165,7 @@ export function Journey({ onOpenProject }: JourneyProps) {
 
         <div className="space-y-1.5">
           <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
-            <ScrambleText text="THE JOURNEY SO FAR" triggerOnHover={true} />
+            THE JOURNEY SO FAR
           </h2>
           <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
             Scholastic mathematical distinctions, national aerospace defense finals, and cybersecurity operations.
@@ -293,7 +292,7 @@ export function Journey({ onOpenProject }: JourneyProps) {
 
                   <div className="space-y-2 max-w-2xl">
                     <h3 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white tracking-tight leading-tight uppercase drop-shadow-md">
-                      <ScrambleText text={panel.title} triggerOnHover={true} />
+                      {panel.title}
                     </h3>
                     <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono text-emerald-300">
                       <span className="font-semibold text-emerald-200">{panel.organization}</span>

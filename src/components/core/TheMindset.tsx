@@ -3,7 +3,6 @@
 import React from 'react';
 import { ArrowRight, Sparkles, Shield, Terminal, ArrowDown } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
-import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 interface TheMindsetProps {
   onNavigateSector: (sectorId: string) => void;
@@ -62,7 +61,7 @@ export function TheMindset({ onNavigateSector }: TheMindsetProps) {
           <div className="p-6 sm:p-8 rounded-2xl bg-[#0A110D]/90 border border-emerald-500/30 space-y-2 hover:border-emerald-400 transition-colors">
             <div className="text-xs font-mono text-emerald-400 font-bold">01 // INQUIRY</div>
             <h3 className="text-xl sm:text-2xl font-heading font-extrabold text-white tracking-tight uppercase">
-              <ScrambleText text="QUESTION EVERYTHING." triggerOnHover={true} />
+              QUESTION EVERYTHING.
             </h3>
             <p className="text-xs sm:text-sm text-emerald-200/70 font-sans pt-1">
               Never trust default configurations, black-box assumptions, or unverified boundaries.
@@ -72,7 +71,7 @@ export function TheMindset({ onNavigateSector }: TheMindsetProps) {
           <div className="p-6 sm:p-8 rounded-2xl bg-[#0A110D]/90 border border-emerald-500/30 space-y-2 hover:border-emerald-400 transition-colors">
             <div className="text-xs font-mono text-emerald-400 font-bold">02 // MASTERY</div>
             <h3 className="text-xl sm:text-2xl font-heading font-extrabold text-white tracking-tight uppercase">
-              <ScrambleText text="UNDERSTAND THE SYSTEM." triggerOnHover={true} />
+              UNDERSTAND THE SYSTEM.
             </h3>
             <p className="text-xs sm:text-sm text-emerald-200/70 font-sans pt-1">
               Dissect telemetry, packet flows, kernel invariants, and underlying physics.
@@ -82,7 +81,7 @@ export function TheMindset({ onNavigateSector }: TheMindsetProps) {
           <div className="p-6 sm:p-8 rounded-2xl bg-[#0A110D]/90 border border-emerald-500/30 space-y-2 hover:border-emerald-400 transition-colors">
             <div className="text-xs font-mono text-emerald-400 font-bold">03 // EXECUTION</div>
             <h3 className="text-xl sm:text-2xl font-heading font-extrabold text-white tracking-tight uppercase">
-              <ScrambleText text="BUILD WITH INTENT." triggerOnHover={true} />
+              BUILD WITH INTENT.
             </h3>
             <p className="text-xs sm:text-sm text-emerald-200/70 font-sans pt-1">
               Engineer deterministic, air-gapped, zero-trust architectures that endure.

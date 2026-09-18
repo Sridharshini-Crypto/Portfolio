@@ -5,7 +5,6 @@ import { ArrowRight, FolderGit2, Network, Compass, Award, ShieldCheck } from 'lu
 import { RadarExploring } from './RadarExploring';
 import { soundFX } from '@/lib/audio';
 import { profileData } from '@/data/profile';
-import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 interface TheCoreProps {
   onNavigateSector: (sectorId: string) => void;
@@ -26,7 +25,7 @@ export function TheCore({ onNavigateSector }: TheCoreProps) {
             SECTOR 01 // CENTRAL HUB
           </span>
           <h2 className="font-heading text-xl font-bold text-[#172033] dark:text-[#F4F0F1]">
-            <ScrambleText text="THE CORE" triggerOnHover={true} />
+            THE CORE
           </h2>
         </div>
         <span className="text-xs font-mono text-[#64748B] dark:text-[#C96A73]/70 hidden sm:block">
@@ -46,7 +45,7 @@ export function TheCore({ onNavigateSector }: TheCoreProps) {
               <span className="text-[#2563EB] dark:text-[#C96A73] font-bold">{profileData.cgpa}</span>
             </div>
             <h3 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#172033] dark:text-[#F4F0F1] tracking-tight">
-              <ScrambleText text={profileData.name} triggerOnHover={true} />
+              {profileData.name}
             </h3>
             <p className="text-base sm:text-lg font-medium text-[#2563EB] dark:text-[#C96A73]">
               {profileData.role} — <span className="text-[#172033] dark:text-[#F4F0F1]">Cyber Security</span>
