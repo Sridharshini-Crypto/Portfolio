@@ -347,6 +347,150 @@ class SoundscapeEngine {
     }
   }
 
+  // 10. Rapid Micro-Frequency Chatter during Scramble Decryption
+  public playScrambleDecryption() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      const freqs = [1200, 1450, 1680, 1920, 2100];
+      const randomFreq = freqs[Math.floor(Math.random() * freqs.length)];
+
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(randomFreq, now);
+
+      gain.gain.setValueAtTime(0.003, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.018);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.018);
+    } catch {
+      // Audio safety
+    }
+  }
+
+  // 11. High-Tech Cyber Access Granted Affirmation
+  public playAccessGranted() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      [587.33, 880, 1174.66, 1760].forEach((freq, idx) => {
+        const osc = this.ctx!.createOscillator();
+        const gain = this.ctx!.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+
+        gain.gain.setValueAtTime(0.015, now + idx * 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.05 + 0.2);
+
+        osc.connect(gain);
+        gain.connect(this.ctx!.destination);
+
+        osc.start(now + idx * 0.05);
+        osc.stop(now + idx * 0.05 + 0.2);
+      });
+    } catch {
+      // Audio safety
+    }
+  }
+
+  // 12. Classified Dossier Decrypt Frequency Sweep
+  public playClassifiedDecrypt() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(940, now + 0.35);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.012, now + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } catch {
+      // Audio safety
+    }
+  }
+
+  // 13. Glitch / Intrusion Warning
+  public playGlitchWarning() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.setValueAtTime(90, now + 0.04);
+      osc.frequency.setValueAtTime(160, now + 0.08);
+
+      gain.gain.setValueAtTime(0.015, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.15);
+    } catch {
+      // Audio safety
+    }
+  }
+
+  // 14. Terminal Tactile Keystroke
+  public playTerminalKeystroke() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(650 + Math.random() * 200, now);
+
+      gain.gain.setValueAtTime(0.008, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.02);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.02);
+    } catch {
+      // Audio safety
+    }
+  }
+
   // Legacy click / tone helper
   public playClick() {
     this.playHoverTick();

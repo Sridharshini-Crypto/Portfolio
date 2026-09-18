@@ -9,6 +9,8 @@ import { CaseFileModal } from './CaseFileModal';
 import { soundFX } from '@/lib/audio';
 import { Project } from '@/types';
 
+import { ScrambleText } from '@/components/cyber/ScrambleText';
+
 interface ProjectLabProps {
   selectedProjectId: string | null;
   onSelectProject: (projectId: string | null) => void;
@@ -46,11 +48,11 @@ export function ProjectLab({ selectedProjectId, onSelectProject }: ProjectLabPro
               CHAPTER 02 // PROJECT LAB
             </span>
             <span className="text-xs font-mono text-emerald-400/70">
-              4 FLAGSHIP INVENTIONS & CASE FILES
+              4 FLAGSHIP INVENTIONS &amp; CASE FILES
             </span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-            PROJECT LAB
+            <ScrambleText text="PROJECT LAB" triggerOnHover={true} />
           </h2>
           <p className="text-sm sm:text-base text-emerald-300/85 max-w-2xl leading-relaxed">
             Deep technical case studies with architecture flowcharts, mathematical models, telemetry integration, and full reproducibility documentation.
@@ -140,7 +142,7 @@ export function ProjectLab({ selectedProjectId, onSelectProject }: ProjectLabPro
                   {project.domain}
                 </div>
                 <h3 className="text-xl sm:text-2xl font-heading font-extrabold text-white group-hover:text-emerald-300 transition-colors">
-                  {project.title}
+                  <ScrambleText text={project.title} triggerOnHover={true} />
                 </h3>
                 <p className="text-xs sm:text-sm text-emerald-300/80 leading-relaxed line-clamp-3">
                   {project.tagline}

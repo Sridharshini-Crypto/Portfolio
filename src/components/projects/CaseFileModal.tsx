@@ -17,6 +17,7 @@ import { Project } from '@/types';
 import { ArchitectureDiagram } from './ArchitectureDiagram';
 import { copyToClipboard } from '@/lib/utils';
 import { soundFX } from '@/lib/audio';
+import { ClassifiedDossier } from '@/components/cyber/ClassifiedDossier';
 
 interface CaseFileModalProps {
   project: Project | null;
@@ -230,6 +231,30 @@ export function CaseFileModal({ project, onClose }: CaseFileModalProps) {
               ))}
             </div>
           </div>
+
+          {/* Classified Dossier Deep Dive */}
+          <ClassifiedDossier
+            title={`CLASSIFIED BLUEPRINT // ${project.title.toUpperCase()}`}
+            classificationLevel={project.id === 'regushield' ? 'AIR-GAPPED ZERO-TRUST' : project.id === 'subaero' ? 'HAL AEROSPACE DEFENSE' : 'LEVEL-5 CYBER ENCLAVE'}
+            clearanceCode={`SPEC-${project.number}-${project.year}`}
+            redactedExcerpt={`Confidential ${project.domain} mathematical architecture, deterministic boundary conditions, and real-time inference telemetry protocols...`}
+            revealedContent={
+              <div className="space-y-3">
+                <div className="text-emerald-300 font-bold">
+                  [+] VERIFIED TECHNICAL DIRECTIVES &amp; CONSTRAINTS:
+                </div>
+                <p>
+                  • <b>Zero-Trust Isolation:</b> Enforces strict process isolation ensuring zero unauthorized data egress or side-channel leakage.
+                </p>
+                <p>
+                  • <b>Mathematical Determinism:</b> Evaluates all input states against formal invariant equations before passing telemetry to inference layers.
+                </p>
+                <p>
+                  • <b>Telemetry Fault Resilience:</b> Continuous automated self-test routine verifying signal integrity within sub-5ms latency envelopes.
+                </p>
+              </div>
+            }
+          />
 
           {/* Verification & Links Footer */}
           <div className="pt-6 border-t border-emerald-500/20 flex flex-wrap items-center justify-between gap-4">

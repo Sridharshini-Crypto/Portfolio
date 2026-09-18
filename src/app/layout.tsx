@@ -85,6 +85,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { CyberConsoleEasterEgg } from '@/components/cyber/CyberConsoleEasterEgg';
+import { ClassifiedVaultModal } from '@/components/cyber/ClassifiedVaultModal';
+
 export default function RootLayout({
   children,
 }: {
@@ -156,6 +159,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-screen bg-[#050807] text-[#F4FBF7] selection:bg-[#059669] selection:text-white"
       >
+        <CyberConsoleEasterEgg />
+        <ClassifiedVaultModal />
         {children}
       </body>
     </html>

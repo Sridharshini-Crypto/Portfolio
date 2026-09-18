@@ -103,12 +103,22 @@ export function ChapterNav({
             <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border border-emerald-500/20 border-dashed animate-[spin_30s_linear_infinite] pointer-events-none" />
 
             {/* Top Telemetry Tag */}
-            <div className="flex items-center justify-between text-[8px] font-mono text-emerald-400/90 pb-1 relative z-10 border-b border-emerald-500/25">
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                soundFX.playVaultUnlock();
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('open-classified-vault'));
+                }
+              }}
+              className="flex items-center justify-between text-[8px] font-mono text-emerald-400/90 pb-1 relative z-10 border-b border-emerald-500/25 hover:text-white cursor-pointer"
+              title="Click to Open Classified Cyber Vault // CTF Enclave"
+            >
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>CIT.CYBER</span>
+                <span className="hover:underline">CIT.CYBER</span>
               </span>
-              <span className="text-emerald-400 font-semibold bg-emerald-950/80 px-1.5 py-0.2 rounded border border-emerald-500/30 tracking-wider">
+              <span className="text-emerald-400 font-semibold bg-emerald-950/80 px-1.5 py-0.2 rounded border border-emerald-500/30 tracking-wider hover:border-emerald-400">
                 ONLINE
               </span>
             </div>
