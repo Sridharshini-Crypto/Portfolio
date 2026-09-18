@@ -114,33 +114,19 @@ export function MeetSridharshini({
             )}
           </div>
 
-          {/* Main Identity Heading with Dynamic Pumping & Size Scaling */}
-          <div
-            className={`space-y-2 transition-all duration-300 origin-left ${
-              phase === 'unmasking'
-                ? 'biometric-pumping'
-                : phase === 'revealed'
-                ? 'reveal-snapped'
-                : ''
-            }`}
-          >
+          {/* Main Identity Heading */}
+          <div className="space-y-2">
             <div className="text-xl sm:text-2xl font-mono text-emerald-400 font-bold tracking-widest uppercase flex items-center gap-2">
-              <span className={phase === 'unmasking' ? 'text-emerald-200' : ''}>MEET</span>
+              <span>MEET</span>
               {phase === 'revealed' && (
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 inline-block animate-bounce" />
               )}
             </div>
-            <h1
-              className={`font-heading font-extrabold tracking-tight leading-none transition-all duration-300 ${
-                phase === 'unmasking'
-                  ? 'text-5xl sm:text-7xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-white drop-shadow-[0_0_35px_rgba(16,185,129,0.9)]'
-                  : 'text-4xl sm:text-6xl md:text-7xl text-white'
-              }`}
-            >
-              <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} triggerOnMount={true} triggerKey={phase} />
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold text-white tracking-tight leading-none">
+              <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} />
             </h1>
             <div className="text-lg sm:text-2xl font-mono text-emerald-300 font-medium pt-1">
-              <ScrambleText text="Cybersecurity · Applied AI · Full-Stack Engineer" triggerOnHover={true} scrambleSpeed={18} />
+              Cybersecurity · Applied AI · Full-Stack Engineer
             </div>
           </div>
 
