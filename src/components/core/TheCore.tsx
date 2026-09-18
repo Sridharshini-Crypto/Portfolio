@@ -5,6 +5,7 @@ import { ArrowRight, FolderGit2, Network, Compass, Award, ShieldCheck } from 'lu
 import { RadarExploring } from './RadarExploring';
 import { soundFX } from '@/lib/audio';
 import { profileData } from '@/data/profile';
+import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 interface TheCoreProps {
   onNavigateSector: (sectorId: string) => void;
@@ -24,7 +25,9 @@ export function TheCore({ onNavigateSector }: TheCoreProps) {
           <span className="font-mono text-xs text-[#2563EB] dark:text-[#C96A73] bg-[#EFF6FF] dark:bg-[#3E070D]/40 px-3 py-1 rounded-full border border-[#2563EB]/25 dark:border-[#6E0F1A]/40 font-semibold">
             SECTOR 01 // CENTRAL HUB
           </span>
-          <h2 className="font-heading text-xl font-bold text-[#172033] dark:text-[#F4F0F1]">THE CORE</h2>
+          <h2 className="font-heading text-xl font-bold text-[#172033] dark:text-[#F4F0F1]">
+            <ScrambleText text="THE CORE" triggerOnHover={true} />
+          </h2>
         </div>
         <span className="text-xs font-mono text-[#64748B] dark:text-[#C96A73]/70 hidden sm:block">
           STATUS: ONLINE • SYSTEM READY
@@ -43,7 +46,7 @@ export function TheCore({ onNavigateSector }: TheCoreProps) {
               <span className="text-[#2563EB] dark:text-[#C96A73] font-bold">{profileData.cgpa}</span>
             </div>
             <h3 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#172033] dark:text-[#F4F0F1] tracking-tight">
-              {profileData.name}
+              <ScrambleText text={profileData.name} triggerOnHover={true} />
             </h3>
             <p className="text-base sm:text-lg font-medium text-[#2563EB] dark:text-[#C96A73]">
               {profileData.role} — <span className="text-[#172033] dark:text-[#F4F0F1]">Cyber Security</span>

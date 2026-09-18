@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, ArrowRight, Shield } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
+import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 interface ProfessionalExperience {
   id: string;
@@ -79,7 +80,7 @@ export function Experience() {
         </div>
         <div className="space-y-1.5">
           <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-            EXPERIENCE & LEADERSHIP
+            <ScrambleText text="EXPERIENCE & LEADERSHIP" triggerOnHover={true} />
           </h2>
           <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
             Production software engineering, technical leadership at CIT, and hands-on systems instruction.
@@ -114,7 +115,9 @@ export function Experience() {
                 <span className="text-xs font-mono text-emerald-400/60">{exp.number}</span>
               </div>
               <div>
-                <h3 className="font-heading font-bold text-white text-base sm:text-lg leading-snug">{exp.role}</h3>
+                <h3 className="font-heading font-bold text-white text-base sm:text-lg leading-snug">
+                  <ScrambleText text={exp.role} triggerOnHover={true} />
+                </h3>
                 <div className="text-xs font-mono text-emerald-400 font-medium mt-1">{exp.organization}</div>
               </div>
               <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400/70 pt-2 border-t border-emerald-500/15">
@@ -136,7 +139,9 @@ export function Experience() {
               <Shield className="w-3.5 h-3.5 text-emerald-400" />
               <span>ROLE PROFILE // {activeExp.number}</span>
             </span>
-            <h3 className="text-2xl sm:text-3xl font-heading font-extrabold text-white leading-tight">{activeExp.role}</h3>
+            <h3 className="text-2xl sm:text-3xl font-heading font-extrabold text-white leading-tight">
+              <ScrambleText text={activeExp.role} triggerOnHover={true} />
+            </h3>
             <div className="text-xs sm:text-sm font-mono text-emerald-300 font-medium flex items-center gap-2">
               <span>{activeExp.organization}</span>
               <span className="text-emerald-600">•</span>

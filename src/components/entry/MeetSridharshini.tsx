@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
 
+import { ScrambleText } from '@/components/cyber/ScrambleText';
+
 interface MeetSridharshiniProps {
   onEnterPortfolio: () => void;
   onBackToGate?: () => void;
@@ -135,7 +137,7 @@ export function MeetSridharshini({
                   : 'text-4xl sm:text-6xl md:text-7xl text-white'
               }`}
             >
-              SRIDHARSHINI S
+              <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} />
             </h1>
             <div className="text-lg sm:text-2xl font-mono text-emerald-300 font-medium pt-1">
               Cybersecurity · Applied AI · Full-Stack Engineer

@@ -1,16 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, ShieldCheck } from 'lucide-react';
+import { ChevronDown, ChevronUp, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react';
 import { certificationsData } from '@/data/certifications';
+import { CertificateModal } from './CertificateModal';
 import { Certification } from '@/types';
 import { soundFX } from '@/lib/audio';
-import { CertificateModal } from './CertificateModal';
+import { ScrambleText } from '@/components/cyber/ScrambleText';
 
 export function TheArchive() {
   const [filter, setFilter] = useState<'all' | 'cybersecurity' | 'networking' | 'ai' | 'programming'>('all');
-  const [expandedCertId, setExpandedCertId] = useState<string | null>(null);
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
+  const [expandedCertId, setExpandedCertId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleExpand = (id: string) => {
@@ -24,9 +25,9 @@ export function TheArchive() {
     setIsModalOpen(true);
   };
 
-  const filteredCerts = certificationsData.filter((c) => {
+  const filteredCerts = certificationsData.filter((cert) => {
     if (filter === 'all') return true;
-    return c.category === filter;
+    return cert.category === filter;
   });
 
   return (
@@ -34,16 +35,16 @@ export function TheArchive() {
       <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-emerald-500/25 pb-6 gap-4">
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-emerald-300 bg-emerald-950/60 px-3.5 py-1 rounded-full border border-emerald-500/40 font-semibold tracking-wider flex items-center gap-2">
+            <span className="font-mono text-xs text-emerald-300 bg-emerald-950/70 px-3.5 py-1 rounded-full border border-emerald-500/40 font-semibold tracking-wider flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>CHAPTER 06 // ALWAYS LEARNING</span>
+              <span>06 // THE ARCHIVE</span>
             </span>
             <span className="text-xs font-mono text-emerald-400/70 hidden sm:inline">
               7 VERIFIED CREDENTIALS
             </span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-            ALWAYS LEARNING
+            <ScrambleText text="ALWAYS LEARNING" triggerOnHover={true} />
           </h2>
           <p className="text-sm sm:text-base text-emerald-300/80 max-w-2xl leading-relaxed font-sans font-light">
             Verified credentials from Chennai Institute of Technology (CIT), Cisco Networking Academy, and Python Institute.
@@ -96,7 +97,7 @@ export function TheArchive() {
 
                 <div className="space-y-1">
                   <h3 className="font-heading font-bold text-white text-base sm:text-lg group-hover:text-emerald-300 transition-colors leading-snug">
-                    {cert.title}
+                    <ScrambleText text={cert.title} triggerOnHover={true} />
                   </h3>
                   <div className="text-xs font-mono text-emerald-400 font-medium">
                     {cert.issuer}
