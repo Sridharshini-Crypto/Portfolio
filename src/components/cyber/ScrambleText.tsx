@@ -18,7 +18,7 @@ interface ScrambleTextProps {
 export function ScrambleText({
   text,
   className = '',
-  scrambleSpeed = 30,
+  scrambleSpeed = 16,
   triggerOnHover = true,
   triggerOnMount = false,
   triggerKey,
@@ -36,6 +36,8 @@ export function ScrambleText({
 
     let iteration = 0;
     const maxIterations = text.length;
+    // Dynamic step so that any text length finishes in ~180-220ms
+    const step = Math.max(1, text.length / 10);
 
     intervalRef.current = setInterval(() => {
       setDisplayText(() => {
@@ -51,7 +53,7 @@ export function ScrambleText({
           .join('');
       });
 
-      if (playAudioOnScramble && Math.random() > 0.45) {
+      if (playAudioOnScramble && Math.random() > 0.6) {
         soundFX.playScrambleDecryption();
       }
 
@@ -62,7 +64,7 @@ export function ScrambleText({
         setIsScrambling(false);
       }
 
-      iteration += 1 / 2.2;
+      iteration += step;
     }, scrambleSpeed);
   }, [text, playAudioOnScramble, scrambleSpeed]);
 
@@ -92,10 +94,9 @@ export function ScrambleText({
   return (
     <span
       onMouseEnter={handleMouseEnter}
-      className={`inline-block transition-all duration-150 cursor-pointer ${
-        isScrambling ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.85)] tracking-wider' : ''
+      className={`inline-block transition-all duration-100 ${
+        isScrambling ? 'text-emerald-400 drop-shadow-[0_0_12px_rgba(16,185,129,0.85)]' : ''
       } ${className}`}
-      title={triggerOnHover ? 'Hover to decrypt' : undefined}
     >
       {displayText}
     </span>
