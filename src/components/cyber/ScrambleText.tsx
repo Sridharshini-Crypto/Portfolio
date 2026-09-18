@@ -12,6 +12,7 @@ interface ScrambleTextProps {
   triggerOnHover?: boolean;
   triggerOnMount?: boolean;
   triggerKey?: any;
+  progress?: number; // Optional sync progress 0-100 (e.g. from photo de-masking)
   playAudioOnScramble?: boolean;
 }
 
@@ -22,12 +23,37 @@ export function ScrambleText({
   triggerOnHover = true,
   triggerOnMount = false,
   triggerKey,
+  progress,
   playAudioOnScramble = true,
 }: ScrambleTextProps) {
   const [displayText, setDisplayText] = useState(text);
   const [isScrambling, setIsScrambling] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const isRunningRef = useRef(false);
+
+  // Synchronize with external progress (e.g. photo de-masking scan 0% - 100%)
+  useEffect(() => {
+    if (progress !== undefined) {
+      if (progress >= 100) {
+        setDisplayText(text);
+        setIsScrambling(false);
+      } else {
+        setIsScrambling(true);
+        const revealedCount = Math.floor((progress / 100) * text.length);
+        const scrambled = text
+          .split('')
+          .map((char, index) => {
+            if (char === ' ') return ' ';
+            if (index < revealedCount) {
+              return text[index];
+            }
+            return CYBER_GLYPHS[Math.floor(Math.random() * CYBER_GLYPHS.length)];
+          })
+          .join('');
+        setDisplayText(scrambled);
+      }
+    }
+  }, [progress, text]);
 
   const startScramble = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -70,32 +96,36 @@ export function ScrambleText({
 
   // Trigger on mount if requested
   useEffect(() => {
-    if (triggerOnMount) {
+    if (triggerOnMount && progress === undefined) {
       startScramble();
     }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [triggerOnMount, startScramble]);
+  }, [triggerOnMount, progress, startScramble]);
 
   // Trigger whenever triggerKey changes
   useEffect(() => {
-    if (triggerKey !== undefined) {
+    if (triggerKey !== undefined && progress === undefined) {
       startScramble();
     }
-  }, [triggerKey, startScramble]);
+  }, [triggerKey, progress, startScramble]);
 
   const handleMouseEnter = () => {
-    if (triggerOnHover) {
+    if (triggerOnHover && (progress === undefined || progress >= 100)) {
       startScramble();
     }
   };
 
+  const isDecryptedInSync = progress !== undefined && progress < 100;
+
   return (
     <span
       onMouseEnter={handleMouseEnter}
-      className={`inline-block transition-all duration-100 ${
-        isScrambling ? 'text-emerald-400 drop-shadow-[0_0_12px_rgba(16,185,129,0.85)]' : ''
+      className={`inline-block transition-colors duration-100 ${
+        isScrambling || isDecryptedInSync
+          ? 'text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.85)] font-mono tracking-wider'
+          : ''
       } ${className}`}
     >
       {displayText}

@@ -123,7 +123,11 @@ export function MeetSridharshini({
               )}
             </div>
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold text-white tracking-tight leading-none">
-              <ScrambleText text="SRIDHARSHINI S" triggerOnHover={true} />
+              <ScrambleText
+                text="SRIDHARSHINI S"
+                triggerOnHover={true}
+                progress={phase === 'cloaked' ? 0 : phase === 'unmasking' ? scanProgress : 100}
+              />
             </h1>
             <div className="text-lg sm:text-2xl font-mono text-emerald-300 font-medium pt-1">
               Cybersecurity · Applied AI · Full-Stack Engineer
