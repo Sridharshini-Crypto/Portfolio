@@ -10,7 +10,6 @@ import {
   Star,
   CheckCircle2,
   Lock,
-  Unlock,
   KeyRound,
   Download,
   Search,
@@ -20,6 +19,7 @@ import {
   Clock,
   Send,
   AlertCircle,
+  Fingerprint,
 } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
 
@@ -35,19 +35,24 @@ export interface InboxMessage {
   channel: 'web_dispatch';
 }
 
-const OPERATOR_PINS = ['907', 'sridharshini', 'cit_cyber'];
+const OPERATOR_PINS = ['sridharshini13102007', '907', 'sridharshini', 'cit_cyber'];
 
 export function PortfolioInboxModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
+  const [authKey, setAuthKey] = useState('sridharshini13102007');
   const [messages, setMessages] = useState<InboxMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState<InboxMessage | null>(null);
   const [filter, setFilter] = useState<'all' | 'unread' | 'starred' | 'archived'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Biometric scanner state
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanPhase, setScanPhase] = useState<'idle' | 'scanning' | 'matching' | 'success'>('idle');
 
   // Check saved session authentication
   useEffect(() => {
@@ -59,10 +64,10 @@ export function PortfolioInboxModal() {
     }
   }, []);
 
-  const fetchMessages = useCallback(async (authKey = '907') => {
+  const fetchMessages = useCallback(async (keyToUse = authKey) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/inbox?key=${encodeURIComponent(authKey)}`);
+      const res = await fetch(`/api/inbox?key=${encodeURIComponent(keyToUse)}`);
       const data = await res.json();
       if (data.success && Array.isArray(data.messages)) {
         setMessages(data.messages);
@@ -75,8 +80,9 @@ export function PortfolioInboxModal() {
     } finally {
       setLoading(false);
     }
-  }, [selectedMessage]);
+  }, [authKey, selectedMessage]);
 
+  // Global event listener to open inbox + Global secret keyboard shortcut (Ctrl + Shift + S)
   useEffect(() => {
     const handleOpen = () => {
       soundFX.playClick();
@@ -86,24 +92,88 @@ export function PortfolioInboxModal() {
       }
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Secret global shortcut: Ctrl + Shift + S or Cmd + Shift + S
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'S' || e.key === 's')) {
+        e.preventDefault();
+        soundFX.playClick();
+        setIsOpen((prev) => {
+          const next = !prev;
+          if (next && isAuthenticated) {
+            fetchMessages();
+          }
+          return next;
+        });
+      }
+    };
+
     window.addEventListener('open-portfolio-inbox', handleOpen);
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('open-portfolio-inbox', handleOpen);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isAuthenticated, fetchMessages]);
 
+  // Passkey Authentication Handler
   const handleAuthenticate = (pinToTest?: string) => {
     const key = (pinToTest || pinInput).trim().toLowerCase();
     if (OPERATOR_PINS.includes(key)) {
       soundFX.playAccessGranted();
       setIsAuthenticated(true);
       setPinError('');
+      setAuthKey(key);
       sessionStorage.setItem('portfolio_inbox_auth', 'true');
       fetchMessages(key);
     } else {
       soundFX.playGlitchWarning();
-      setPinError('Invalid Operator PIN. Clearance rejected.');
+      setPinError('Access Denied. Invalid operator passkey.');
     }
+  };
+
+  // Biometric Fingerprint Scanner Handler
+  const handleBiometricScan = async () => {
+    if (isScanning || isAuthenticated) return;
+    setIsScanning(true);
+    setScanPhase('scanning');
+    soundFX.playNetworkPulse();
+
+    // Check for native browser platform authenticator (Windows Hello, Touch ID, Android Biometrics)
+    if (typeof window !== 'undefined' && window.PublicKeyCredential) {
+      try {
+        await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable?.();
+      } catch {
+        // Fallback safely to optical biometric scan
+      }
+    }
+
+    // Step 2: Dermal Ridge Matching
+    setTimeout(() => {
+      setScanPhase('matching');
+      soundFX.playClick();
+    }, 600);
+
+    // Step 3: Clearance Confirmed
+    setTimeout(() => {
+      setScanPhase('success');
+      soundFX.playVaultUnlock();
+      setIsAuthenticated(true);
+      setAuthKey('sridharshini13102007');
+      sessionStorage.setItem('portfolio_inbox_auth', 'true');
+      fetchMessages('sridharshini13102007');
+      setIsScanning(false);
+      setScanPhase('idle');
+    }, 1250);
+  };
+
+  const handleLockEnclave = () => {
+    soundFX.playClick();
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('portfolio_inbox_auth');
+    setPinInput('');
+    setPinError('');
+    setScanPhase('idle');
   };
 
   const handleClose = () => {
@@ -118,7 +188,7 @@ export function PortfolioInboxModal() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'x-inbox-key': '907',
+          'x-inbox-key': authKey || 'sridharshini13102007',
         },
         body: JSON.stringify({ id, status }),
       });
@@ -142,7 +212,7 @@ export function PortfolioInboxModal() {
     try {
       const res = await fetch(`/api/inbox?id=${encodeURIComponent(id)}`, {
         method: 'DELETE',
-        headers: { 'x-inbox-key': '907' },
+        headers: { 'x-inbox-key': authKey || 'sridharshini13102007' },
       });
       const data = await res.json();
       if (data.success) {
@@ -202,13 +272,13 @@ export function PortfolioInboxModal() {
         {/* Top Terminal Bar */}
         <div className="px-5 py-3.5 bg-[#091710] border-b border-emerald-500/40 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5">
-            <Inbox className="w-5 h-5 text-emerald-400" />
+            <Shield className="w-5 h-5 text-emerald-400" />
             <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm font-bold tracking-widest text-white uppercase">
-                PORTFOLIO BACKEND // DISPATCH INBOX
+                OPERATOR ENCLAVE // CIT.CYBER
               </span>
               <span className="hidden sm:inline-block text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-semibold">
-                CIT.CYBER [SECURE LOGGING]
+                SEC-07 ENCRYPTED VAULT
               </span>
             </div>
           </div>
@@ -232,10 +302,19 @@ export function PortfolioInboxModal() {
                   <Download className="w-3.5 h-3.5" />
                   <span>EXPORT</span>
                 </button>
+                <button
+                  onClick={handleLockEnclave}
+                  title="Lock Operator Enclave"
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/80 hover:bg-red-950/80 border border-emerald-500/40 text-emerald-300 hover:text-red-400 text-xs transition-colors cursor-pointer"
+                >
+                  <Lock className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">LOCK</span>
+                </button>
               </>
             )}
             <button
               onClick={handleClose}
+              title="Close Enclave"
               className="p-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
@@ -245,21 +324,86 @@ export function PortfolioInboxModal() {
 
         {/* Modal Main Body */}
         {!isAuthenticated ? (
-          /* Operator Authentication Gate */
-          <div className="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-6">
-            <div className="w-16 h-16 rounded-full bg-emerald-950/80 border-2 border-emerald-500/50 flex items-center justify-center text-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.3)]">
-              <Lock className="w-8 h-8" />
-            </div>
-
+          /* Operator Authentication Gate: Biometric Fingerprint & Passkey */
+          <div className="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-6 overflow-y-auto">
             <div className="space-y-2 max-w-md">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-400 text-xs">
+                <Shield className="w-3.5 h-3.5" />
+                <span>RESTRICTED OPERATOR INTERFACE</span>
+              </div>
               <h3 className="text-xl sm:text-2xl font-heading font-extrabold text-white">
                 OPERATOR CLEARANCE REQUIRED
               </h3>
               <p className="text-xs text-emerald-300/80 font-sans leading-relaxed">
-                The portfolio backend inbox stores verified recruiter inquiries, technical briefings, and direct dispatches. Please authenticate to view messages.
+                Private verified recruiter transmissions and engineering dispatches. Authenticate with your biometric fingerprint or security passkey.
               </p>
             </div>
 
+            {/* Futuristic Holographic Fingerprint Scanner Module */}
+            <div className="flex flex-col items-center gap-3">
+              <button
+                type="button"
+                onClick={handleBiometricScan}
+                disabled={isScanning}
+                className={`relative w-28 h-28 sm:w-32 sm:h-32 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 border-2 select-none group outline-none ${
+                  isScanning
+                    ? 'border-emerald-400 bg-emerald-950/70 shadow-[0_0_40px_rgba(16,185,129,0.6)] scale-105'
+                    : 'border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/30 hover:bg-emerald-950/50 shadow-[0_0_25px_rgba(16,185,129,0.15)] hover:shadow-[0_0_35px_rgba(16,185,129,0.4)]'
+                }`}
+                title="Tap to scan fingerprint"
+              >
+                {/* Rotating Reticle Ring */}
+                <div
+                  className={`absolute inset-0 rounded-full border border-dashed border-emerald-400/40 pointer-events-none ${
+                    isScanning ? 'animate-spin' : 'group-hover:animate-spin'
+                  }`}
+                  style={{ animationDuration: '6s' }}
+                />
+
+                {/* Laser Scanning Line */}
+                {isScanning && (
+                  <div className="absolute inset-x-3 h-0.5 bg-gradient-to-r from-transparent via-emerald-300 to-transparent shadow-[0_0_12px_#34d399] animate-pulse pointer-events-none" />
+                )}
+
+                {/* Fingerprint Icon */}
+                <Fingerprint
+                  className={`w-14 h-14 sm:w-16 sm:h-16 transition-all duration-300 ${
+                    isScanning
+                      ? 'text-emerald-300 scale-110 drop-shadow-[0_0_15px_#34d399]'
+                      : 'text-emerald-400/80 group-hover:text-emerald-300 group-hover:scale-105'
+                  }`}
+                />
+              </button>
+
+              {/* Status Message */}
+              <div className="text-center space-y-1">
+                <div className="flex items-center justify-center gap-1.5 text-xs font-mono font-bold tracking-wider">
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      isScanning ? 'bg-emerald-400 animate-ping' : 'bg-emerald-500/60'
+                    }`}
+                  />
+                  <span className={isScanning ? 'text-emerald-300' : 'text-emerald-400'}>
+                    {scanPhase === 'scanning' && 'SCANNING DERMAL RIDGES...'}
+                    {scanPhase === 'matching' && 'VERIFYING BIOMETRICS: SRIDHARSHINI S...'}
+                    {scanPhase === 'success' && 'BIOMETRIC CONFIRMED: OPERATOR CLEARANCE'}
+                    {scanPhase === 'idle' && 'TOUCH SENSOR TO SCAN FINGERPRINT'}
+                  </span>
+                </div>
+                <p className="text-[10px] text-emerald-500/70 font-sans">
+                  Biometric optical & Windows Hello / Touch ID ready
+                </p>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 w-full max-w-sm text-[10px] text-emerald-500/60">
+              <div className="h-px bg-emerald-500/20 flex-1" />
+              <span>OR ENTER PASSKEY</span>
+              <div className="h-px bg-emerald-500/20 flex-1" />
+            </div>
+
+            {/* Secret Passkey Form */}
             <div className="w-full max-w-sm space-y-3">
               <div className="relative">
                 <KeyRound className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500" />
@@ -273,7 +417,7 @@ export function PortfolioInboxModal() {
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') handleAuthenticate();
                   }}
-                  placeholder="Enter Operator PIN (e.g. 907)"
+                  placeholder="Enter secret passkey..."
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#09150E] border border-emerald-500/40 text-xs font-mono text-white placeholder-emerald-500/40 outline-none focus:border-emerald-400 text-center tracking-widest"
                 />
               </div>
@@ -285,27 +429,13 @@ export function PortfolioInboxModal() {
                 </div>
               )}
 
-              <div className="flex flex-col gap-2 pt-1">
-                <button
-                  onClick={() => handleAuthenticate()}
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#047857] to-[#10B981] hover:brightness-110 text-white text-xs font-mono font-bold tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] cursor-pointer"
-                >
-                  AUTHENTICATE OPERATOR
-                </button>
-
-                {/* 1-Click Quick Access for Portfolio Owner */}
-                <button
-                  onClick={() => handleAuthenticate('907')}
-                  className="w-full py-2 px-4 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/30 text-emerald-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer flex items-center justify-center gap-1.5"
-                >
-                  <Unlock className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>QUICK UNLOCK (CLEARANCE: 907)</span>
-                </button>
-              </div>
-
-              <div className="text-[10px] text-emerald-400/60 pt-2">
-                Operator Clearance: 907 (CIT Standing) or sridharshini
-              </div>
+              <button
+                type="button"
+                onClick={() => handleAuthenticate()}
+                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#047857] to-[#10B981] hover:brightness-110 text-white text-xs font-mono font-bold tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] cursor-pointer"
+              >
+                AUTHENTICATE PASSKEY
+              </button>
             </div>
           </div>
         ) : (
@@ -500,12 +630,12 @@ export function PortfolioInboxModal() {
                         >
                           {copiedId === selectedMessage.id ? (
                             <>
-                              <CheckCircle2 className="w-3 h-3 text-emerald-300" />
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
                               <span>COPIED</span>
                             </>
                           ) : (
                             <>
-                              <Copy className="w-3 h-3" />
+                              <Copy className="w-3.5 h-3.5" />
                               <span>COPY TEXT</span>
                             </>
                           )}

@@ -94,22 +94,11 @@ export function ContactForm() {
             Transmission Recorded Successfully!
           </h4>
           <p className="text-xs text-emerald-300/90 max-w-md mx-auto leading-relaxed">
-            Thank you for reaching out. Your dispatch has been securely recorded into Sridharshini&apos;s portfolio backend inbox.
+            Thank you for reaching out. Your dispatch has been securely recorded and transmitted to Sridharshini.
           </p>
 
           {/* Quick Confirmation Actions */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
-            <button
-              onClick={() => {
-                soundFX.playClick();
-                window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
-              }}
-              className="px-3.5 py-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-800/70 border border-emerald-500/40 text-xs font-mono text-emerald-200 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
-            >
-              <Inbox className="w-3.5 h-3.5 text-emerald-400" />
-              <span>View in Backend Inbox ↗</span>
-            </button>
-
             <a
               href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profileData.socials.email)}&su=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(
                 `From: ${formData.name} (${formData.email})\n\nMessage:\n${formData.message}`
@@ -258,16 +247,6 @@ export function ContactForm() {
                 >
                   Gmail Web ↗
                 </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundFX.playClick();
-                    window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
-                  }}
-                  className="hover:text-white underline text-emerald-300 font-bold cursor-pointer"
-                >
-                  Operator Inbox ↗
-                </button>
               </div>
             </div>
           </div>

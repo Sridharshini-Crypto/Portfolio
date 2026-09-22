@@ -7,9 +7,13 @@ import {
   InboxMessage,
 } from '@/lib/inboxStore';
 
-const VALID_ACCESS_KEYS = ['907', 'sridharshini', 'cit_cyber', process.env.INBOX_ACCESS_KEY].filter(
-  Boolean
-) as string[];
+const VALID_ACCESS_KEYS = [
+  'sridharshini13102007',
+  '907',
+  'sridharshini',
+  'cit_cyber',
+  process.env.INBOX_ACCESS_KEY,
+].filter(Boolean) as string[];
 
 function isAuthorized(request: Request): boolean {
   const url = new URL(request.url);
@@ -149,3 +153,4 @@ export async function DELETE(request: Request) {
     );
   }
 }
+

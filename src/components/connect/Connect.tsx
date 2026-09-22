@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Inbox, Copy, Check, ExternalLink } from 'lucide-react';
+import { Mail, ShieldCheck, Copy, Check, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/Icons';
 import { ContactForm } from './ContactForm';
 import { profileData } from '@/data/profile';
@@ -84,30 +84,39 @@ export function Connect() {
             </div>
           </div>
 
-          {/* Portfolio Backend Inbox Access Card (Replaces WhatsApp) */}
-          <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.12)] space-y-4 relative overflow-hidden group hover:border-emerald-400/60 transition-colors">
+          {/* Engineering Protocol & SLA Specification (With Discreet Enclave Trigger) */}
+          <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/25 shadow-xs space-y-3.5 relative overflow-hidden">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
-                <Inbox className="w-4 h-4 text-emerald-400" />
-                <span>PORTFOLIO BACKEND INBOX</span>
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>DISPATCH SPECIFICATION & SLA</span>
               </div>
-              <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-500/40 font-semibold flex items-center gap-1.5">
+              {/* Discreet Enclave Trigger: Looks like a status badge, secretly triggers the Inbox */}
+              <button
+                type="button"
+                onClick={handleOpenInbox}
+                title="Enclave Status Node"
+                className="text-[10px] font-mono text-emerald-400/70 hover:text-emerald-300 bg-emerald-950/40 hover:bg-emerald-900/60 px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>ONLINE</span>
-              </span>
+                <span>SEC-07 // ENCLAVE</span>
+              </button>
             </div>
 
-            <p className="text-xs text-emerald-300/80 leading-relaxed font-sans">
-              All dispatches submitted through the secure transmitter are recorded in the portfolio backend inbox with timestamps and telemetry.
+            <p className="text-xs text-emerald-300/80 leading-relaxed font-sans font-light">
+              Zero-trust engineering channel with TLS cryptographic dispatch logging. All transmissions are verified and recorded into Sridharshini&apos;s secured operator queue.
             </p>
 
-            <button
-              onClick={handleOpenInbox}
-              className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r from-[#047857] via-[#059669] to-[#10B981] hover:brightness-110 text-white font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer"
-            >
-              <Inbox className="w-4 h-4" />
-              <span>VIEW BACKEND INBOX</span>
-            </button>
+            <div className="grid grid-cols-2 gap-2 pt-1 font-mono text-[11px]">
+              <div className="p-2.5 rounded-xl bg-[#0E1813] border border-emerald-500/20 space-y-0.5">
+                <div className="text-[9px] text-emerald-500/70 uppercase">RESPONSE SLA</div>
+                <div className="text-emerald-200 font-bold">&lt; 12 Hours</div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-[#0E1813] border border-emerald-500/20 space-y-0.5">
+                <div className="text-[9px] text-emerald-500/70 uppercase">TRANSIT PROTOCOL</div>
+                <div className="text-emerald-200 font-bold">E2E TLS 1.3</div>
+              </div>
+            </div>
           </div>
 
           <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/25 shadow-xs space-y-3">
