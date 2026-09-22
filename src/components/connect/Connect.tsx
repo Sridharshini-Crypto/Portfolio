@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, ShieldCheck, Copy, Check, ExternalLink } from 'lucide-react';
+import { Mail, Copy, Check, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/Icons';
 import { ContactForm } from './ContactForm';
 import { profileData } from '@/data/profile';
@@ -76,35 +76,6 @@ export function Connect() {
                 <span>OPEN IN GMAIL WEB</span>
                 <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
               </a>
-            </div>
-          </div>
-
-          {/* Engineering Protocol & SLA Specification */}
-          <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/25 shadow-xs space-y-3.5 relative overflow-hidden">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>DISPATCH SPECIFICATION & SLA</span>
-              </div>
-              <span className="text-[10px] font-mono text-emerald-400/80 bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-medium flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>ACTIVE SLA</span>
-              </span>
-            </div>
-
-            <p className="text-xs text-emerald-300/80 leading-relaxed font-sans font-light">
-              Zero-trust engineering channel with TLS cryptographic dispatch logging. All transmissions are verified and recorded into Sridharshini&apos;s secured operator queue.
-            </p>
-
-            <div className="grid grid-cols-2 gap-2 pt-1 font-mono text-[11px]">
-              <div className="p-2.5 rounded-xl bg-[#0E1813] border border-emerald-500/20 space-y-0.5">
-                <div className="text-[9px] text-emerald-500/70 uppercase">RESPONSE SLA</div>
-                <div className="text-emerald-200 font-bold">&lt; 12 Hours</div>
-              </div>
-              <div className="p-2.5 rounded-xl bg-[#0E1813] border border-emerald-500/20 space-y-0.5">
-                <div className="text-[9px] text-emerald-500/70 uppercase">TRANSIT PROTOCOL</div>
-                <div className="text-emerald-200 font-bold">E2E TLS 1.3</div>
-              </div>
             </div>
           </div>
 
