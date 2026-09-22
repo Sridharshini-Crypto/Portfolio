@@ -20,11 +20,6 @@ export function Connect() {
     });
   };
 
-  const handleOpenInbox = () => {
-    soundFX.playClick();
-    window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
-  };
-
   return (
     <section id="connect" className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 text-[#F4FBF7]">
       <div className="space-y-3 border-b border-emerald-500/25 pb-6">
@@ -84,23 +79,17 @@ export function Connect() {
             </div>
           </div>
 
-          {/* Engineering Protocol & SLA Specification (With Discreet Enclave Trigger) */}
+          {/* Engineering Protocol & SLA Specification */}
           <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/25 shadow-xs space-y-3.5 relative overflow-hidden">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>DISPATCH SPECIFICATION & SLA</span>
               </div>
-              {/* Discreet Enclave Trigger: Looks like a status badge, secretly triggers the Inbox */}
-              <button
-                type="button"
-                onClick={handleOpenInbox}
-                title="Enclave Status Node"
-                className="text-[10px] font-mono text-emerald-400/70 hover:text-emerald-300 bg-emerald-950/40 hover:bg-emerald-900/60 px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
-              >
+              <span className="text-[10px] font-mono text-emerald-400/80 bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-medium flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>SEC-07 // ENCLAVE</span>
-              </button>
+                <span>ACTIVE SLA</span>
+              </span>
             </div>
 
             <p className="text-xs text-emerald-300/80 leading-relaxed font-sans font-light">

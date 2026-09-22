@@ -15,6 +15,7 @@ import {
   X,
   ArrowUp,
   Sparkles,
+  Lock,
 } from 'lucide-react';
 
 interface ChapterNavProps {
@@ -100,24 +101,41 @@ export function ChapterNav({
             <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border border-emerald-500/20 border-dashed animate-[spin_30s_linear_infinite] pointer-events-none" />
 
             {/* Top Telemetry Tag */}
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                soundFX.playVaultUnlock();
-                if (typeof window !== 'undefined') {
-                  window.dispatchEvent(new CustomEvent('open-classified-vault'));
-                }
-              }}
-              className="flex items-center justify-between text-[8px] font-mono text-emerald-400/90 pb-1 relative z-10 border-b border-emerald-500/25 hover:text-white cursor-pointer"
-              title="Click to Open Classified Cyber Vault // CTF Enclave"
-            >
-              <span className="flex items-center gap-1">
+            <div className="flex items-center justify-between text-[8px] font-mono text-emerald-400/90 pb-1 relative z-10 border-b border-emerald-500/25">
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  soundFX.playVaultUnlock();
+                  if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('open-classified-vault'));
+                  }
+                }}
+                className="flex items-center gap-1 hover:text-white cursor-pointer"
+                title="Click to Open Classified Cyber Vault // CTF Enclave"
+              >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
                 <span className="hover:underline">CIT.CYBER</span>
               </span>
-              <span className="text-emerald-400 font-semibold bg-emerald-950/80 px-1.5 py-0.2 rounded border border-emerald-500/30 tracking-wider hover:border-emerald-400">
-                ONLINE
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="text-emerald-400 font-semibold bg-emerald-950/80 px-1.5 py-0.2 rounded border border-emerald-500/30 tracking-wider">
+                  ONLINE
+                </span>
+                {/* Tiny secret lock icon structure in top right upper side of profile */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    soundFX.playClick();
+                    if (typeof window !== 'undefined') {
+                      window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
+                    }
+                  }}
+                  className="p-0.5 rounded text-emerald-500/60 hover:text-emerald-200 hover:bg-emerald-950/90 border border-emerald-500/20 hover:border-emerald-400/60 transition-all cursor-pointer inline-flex items-center justify-center shadow-2xs"
+                  title="Operator Security Enclave"
+                >
+                  <Lock className="w-2.5 h-2.5" />
+                </button>
+              </div>
             </div>
 
             {/* Authentic Portrait Image Frame Relatable to Dark Terminal Theme */}

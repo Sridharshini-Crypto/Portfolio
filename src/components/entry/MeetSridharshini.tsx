@@ -14,6 +14,7 @@ import {
   RefreshCw,
   Eye,
   Scan,
+  Lock,
 } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
 
@@ -205,9 +206,26 @@ export function MeetSridharshini({
                   {phase === 'revealed' ? 'IDENTITY VERIFIED' : phase === 'unmasking' ? 'DE-MASKING IN PROGRESS' : 'CLOAKED ENTITY'}
                 </span>
               </div>
-              <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/90 px-2.5 py-0.5 rounded border border-emerald-500/40 font-semibold uppercase">
-                {phase === 'revealed' ? 'CIT.CYBER' : 'BIO.SCAN'}
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/90 px-2.5 py-0.5 rounded border border-emerald-500/40 font-semibold uppercase">
+                  {phase === 'revealed' ? 'CIT.CYBER' : 'BIO.SCAN'}
+                </span>
+                {/* Tiny secret lock icon structure in top right upper side of profile */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    soundFX.playClick();
+                    if (typeof window !== 'undefined') {
+                      window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
+                    }
+                  }}
+                  className="p-1 rounded text-emerald-500/60 hover:text-emerald-200 hover:bg-emerald-950/90 border border-emerald-500/25 hover:border-emerald-400/60 transition-all cursor-pointer inline-flex items-center justify-center shadow-2xs"
+                  title="Operator Security Enclave"
+                >
+                  <Lock className="w-2.5 h-2.5" />
+                </button>
+              </div>
             </div>
 
             {/* Center Portrait Visual with Holographic De-Masking Scan */}
