@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   FileText,
-  MessageSquare,
+  Send,
   Search,
   Menu,
   X,
@@ -63,10 +63,6 @@ export function GlobalHUD({
       }
     }
   };
-
-  const whatsappUrl = `https://wa.me/${profileData.socials.whatsappNumber}?text=${encodeURIComponent(
-    profileData.defaultWhatsAppMessage
-  )}`;
 
   return (
     <>
@@ -155,18 +151,15 @@ export function GlobalHUD({
             {/* Sound FX Toggle (Cyber Green Theme) */}
             <SoundToggle />
 
-            {/* Direct WhatsApp Quick Connect */}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => soundFX.playClick()}
+            {/* Direct Dispatch Quick Connect */}
+            <button
+              onClick={() => handleNavClick('connect')}
               className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#047857] to-[#10B981] hover:brightness-110 text-white transition-all text-xs font-mono font-bold shadow-[0_0_16px_rgba(16,185,129,0.35)] cursor-pointer"
-              title="Connect on WhatsApp"
+              title="Send Secure Dispatch Message"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-white" />
+              <Send className="w-3.5 h-3.5 text-white" />
               <span>Connect</span>
-            </a>
+            </button>
 
             {/* Mobile Menu Button */}
             <button
@@ -230,15 +223,13 @@ export function GlobalHUD({
               <span>Download Resume PDF</span>
             </a>
 
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-[#047857] to-[#10B981] text-white rounded-xl font-mono text-xs font-bold transition-colors shadow-md"
+            <button
+              onClick={() => handleNavClick('connect')}
+              className="w-full flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-[#047857] to-[#10B981] text-white rounded-xl font-mono text-xs font-bold transition-colors shadow-md cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4" />
-              <span>Connect on WhatsApp</span>
-            </a>
+              <Send className="w-4 h-4" />
+              <span>Send Dispatch Message</span>
+            </button>
 
             <div className="flex items-center justify-between text-xs text-emerald-400/60 font-mono px-2">
               <span>Chennai Institute of Technology</span>

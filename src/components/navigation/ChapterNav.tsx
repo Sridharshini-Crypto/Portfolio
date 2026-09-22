@@ -8,6 +8,7 @@ import {
   RotateCcw,
   Search,
   MessageSquare,
+  Send,
   Volume2,
   VolumeX,
   Menu,
@@ -62,10 +63,6 @@ export function ChapterNav({
     setMobileMenuOpen(false);
     onNavigateSector(id);
   };
-
-  const whatsappUrl = `https://wa.me/${profileData.socials.whatsappNumber}?text=${encodeURIComponent(
-    profileData.defaultWhatsAppMessage
-  )}`;
 
   return (
     <>
@@ -201,18 +198,15 @@ export function ChapterNav({
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
           </div>
 
-          {/* Primary Action: Glowing Green Connect Button */}
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => soundFX.playClick()}
+          {/* Primary Action: Glowing Green Dispatch Button */}
+          <button
+            onClick={() => handleClick('connect')}
             className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#047857] via-[#059669] to-[#10B981] hover:brightness-110 text-white font-mono text-xs font-bold shadow-[0_0_16px_rgba(16,185,129,0.35)] transition-all cursor-pointer"
-            title="Connect on WhatsApp"
+            title="Send Secure Dispatch Message"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-white" />
-            <span>Connect</span>
-          </a>
+            <Send className="w-3.5 h-3.5 text-white" />
+            <span>DISPATCH</span>
+          </button>
 
           {/* 2x2 Action Pills Grid */}
           <div className="grid grid-cols-2 gap-1.5">
@@ -337,16 +331,13 @@ export function ChapterNav({
         </button>
 
         {/* Mobile Connect */}
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => soundFX.playClick()}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#047857] to-[#10B981] text-white font-mono text-[11px] font-bold shadow-sm"
+        <button
+          onClick={() => handleClick('connect')}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#047857] to-[#10B981] text-white font-mono text-[11px] font-bold shadow-sm cursor-pointer"
         >
-          <MessageSquare className="w-3.5 h-3.5" />
+          <Send className="w-3.5 h-3.5" />
           <span>Connect</span>
-        </a>
+        </button>
       </div>
 
       {/* Mobile Drawer Menu */}

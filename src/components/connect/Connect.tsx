@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, MessageSquare, Copy, Check, ExternalLink } from 'lucide-react';
+import { Mail, Inbox, Copy, Check, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/Icons';
 import { ContactForm } from './ContactForm';
 import { profileData } from '@/data/profile';
-import { getWhatsAppLink, copyToClipboard } from '@/lib/utils';
+import { copyToClipboard } from '@/lib/utils';
 import { soundFX } from '@/lib/audio';
 import { ScrambleText } from '@/components/cyber/ScrambleText';
 
@@ -20,10 +20,10 @@ export function Connect() {
     });
   };
 
-  const whatsappUrl = getWhatsAppLink(
-    profileData.socials.whatsappNumber,
-    profileData.defaultWhatsAppMessage
-  );
+  const handleOpenInbox = () => {
+    soundFX.playClick();
+    window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
+  };
 
   return (
     <section id="connect" className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 text-[#F4FBF7]">
@@ -84,27 +84,30 @@ export function Connect() {
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/25 shadow-xs space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
-              <MessageSquare className="w-4 h-4" />
-              <span>INSTANT ENCRYPTED CHAT</span>
+          {/* Portfolio Backend Inbox Access Card (Replaces WhatsApp) */}
+          <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.12)] space-y-4 relative overflow-hidden group hover:border-emerald-400/60 transition-colors">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
+                <Inbox className="w-4 h-4 text-emerald-400" />
+                <span>PORTFOLIO BACKEND INBOX</span>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-500/40 font-semibold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>ONLINE</span>
+              </span>
             </div>
 
             <p className="text-xs text-emerald-300/80 leading-relaxed font-sans">
-              Reach out directly on WhatsApp for immediate technical collaboration, inquiries, or hackathon discussions.
+              All dispatches submitted through the secure transmitter are recorded in the portfolio backend inbox with timestamps and telemetry.
             </p>
 
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => soundFX.playClick()}
-              className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r from-[#047857] via-[#059669] to-[#10B981] hover:brightness-110 text-white font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-xs cursor-pointer"
+            <button
+              onClick={handleOpenInbox}
+              className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r from-[#047857] via-[#059669] to-[#10B981] hover:brightness-110 text-white font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4" />
-              <span>OPEN WHATSAPP BRIDGE</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+              <Inbox className="w-4 h-4" />
+              <span>VIEW BACKEND INBOX</span>
+            </button>
           </div>
 
           <div className="p-5 rounded-2xl bg-[#0A110D] border border-emerald-500/25 shadow-xs space-y-3">

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "disp-sys-001",
+    "name": "CIT Security Telemetry Daemon",
+    "email": "security@cit-cyber.internal",
+    "subject": "Portfolio Backend Dispatch Subsystem Initialized",
+    "message": "Zero-Trust Dispatch Terminal is fully online. All incoming transmissions sent through the Connect interface are recorded securely in this portfolio backend inbox with timestamp and IP telemetry.",
+    "timestamp": "2026-09-18T18:00:00.000Z",
+    "status": "read",
+    "channel": "web_dispatch"
+  }
+]

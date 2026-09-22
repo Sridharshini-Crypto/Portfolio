@@ -87,6 +87,7 @@ export const metadata: Metadata = {
 
 import { CyberConsoleEasterEgg } from '@/components/cyber/CyberConsoleEasterEgg';
 import { ClassifiedVaultModal } from '@/components/cyber/ClassifiedVaultModal';
+import { PortfolioInboxModal } from '@/components/connect/PortfolioInboxModal';
 
 export default function RootLayout({
   children,
@@ -161,6 +162,7 @@ export default function RootLayout({
       >
         <CyberConsoleEasterEgg />
         <ClassifiedVaultModal />
+        <PortfolioInboxModal />
         {children}
       </body>
     </html>

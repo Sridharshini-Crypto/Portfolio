@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, CheckCircle, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Send, CheckCircle, AlertTriangle, RefreshCw, Inbox } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
 import { profileData } from '@/data/profile';
 
@@ -62,7 +62,7 @@ export function ContactForm() {
         soundFX.playVaultUnlock();
         setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
       } else {
-        setErrorMessage(data.error || 'Unable to transmit message. Please contact directly via Gmail or WhatsApp.');
+        setErrorMessage(data.error || 'Unable to transmit message. Please contact directly via Gmail at ' + profileData.socials.email);
         setFormState('error');
       }
     } catch {
@@ -81,7 +81,7 @@ export function ContactForm() {
           Send a Secure Message
         </h3>
         <p className="text-xs text-emerald-300/80">
-          Messages are dispatched directly to Sridharshini&apos;s verified inbox.
+          Messages are dispatched directly into Sridharshini&apos;s verified portfolio backend inbox.
         </p>
       </div>
 
@@ -94,11 +94,22 @@ export function ContactForm() {
             Transmission Recorded Successfully!
           </h4>
           <p className="text-xs text-emerald-300/90 max-w-md mx-auto leading-relaxed">
-            Thank you for reaching out. Your dispatch has been transmitted to Sridharshini&apos;s verified inbox.
+            Thank you for reaching out. Your dispatch has been securely recorded into Sridharshini&apos;s portfolio backend inbox.
           </p>
 
           {/* Quick Confirmation Actions */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
+            <button
+              onClick={() => {
+                soundFX.playClick();
+                window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
+              }}
+              className="px-3.5 py-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-800/70 border border-emerald-500/40 text-xs font-mono text-emerald-200 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+            >
+              <Inbox className="w-3.5 h-3.5 text-emerald-400" />
+              <span>View in Backend Inbox ↗</span>
+            </button>
+
             <a
               href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profileData.socials.email)}&su=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(
                 `From: ${formData.name} (${formData.email})\n\nMessage:\n${formData.message}`
@@ -108,7 +119,7 @@ export function ContactForm() {
               onClick={() => soundFX.playClick()}
               className="px-3.5 py-2 rounded-xl bg-[#0E1813] hover:bg-emerald-900/60 border border-emerald-500/40 text-xs font-mono text-emerald-300 hover:text-white transition-all"
             >
-              Open Direct Copy in Gmail ↗
+              Open Copy in Gmail ↗
             </a>
 
             <button
@@ -118,7 +129,7 @@ export function ContactForm() {
               }}
               className="px-3.5 py-2 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-xs font-mono text-emerald-400 hover:text-white cursor-pointer"
             >
-              Send Another Message
+              Send Another
             </button>
           </div>
         </div>
@@ -247,17 +258,16 @@ export function ContactForm() {
                 >
                   Gmail Web ↗
                 </a>
-                <a
-                  href={`https://wa.me/${profileData.socials.whatsappNumber}?text=${encodeURIComponent(
-                    profileData.defaultWhatsAppMessage
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => soundFX.playClick()}
-                  className="hover:text-white underline text-emerald-300 font-bold"
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundFX.playClick();
+                    window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
+                  }}
+                  className="hover:text-white underline text-emerald-300 font-bold cursor-pointer"
                 >
-                  WhatsApp ↗
-                </a>
+                  Operator Inbox ↗
+                </button>
               </div>
             </div>
           </div>

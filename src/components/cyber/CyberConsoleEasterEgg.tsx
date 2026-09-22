@@ -6,6 +6,7 @@ import { soundFX } from '@/lib/audio';
 declare global {
   interface Window {
     unlock_classified_vault?: () => string;
+    open_portfolio_inbox?: () => string;
     cit_telemetry?: () => void;
     help?: () => string;
   }
@@ -50,12 +51,22 @@ export function CyberConsoleEasterEgg() {
       '%c[>] Type unlock_classified_vault() in console to decrypt top-secret research notes.',
       'color: #A7F3D0; font-family: monospace; font-size: 11px; font-style: italic;'
     );
+    console.log(
+      '%c[>] Type open_portfolio_inbox() to view recorded backend dispatches.',
+      'color: #6EE7B7; font-family: monospace; font-size: 11px; font-style: italic;'
+    );
 
     // Register global interactive functions
     window.unlock_classified_vault = () => {
       soundFX.playVaultUnlock();
       window.dispatchEvent(new CustomEvent('open-classified-vault'));
       return '🔓 [ACCESS GRANTED]: Decrypting classified enclave modal on UI...';
+    };
+
+    window.open_portfolio_inbox = () => {
+      soundFX.playClick();
+      window.dispatchEvent(new CustomEvent('open-portfolio-inbox'));
+      return '📬 [PORTFOLIO INBOX]: Opening backend dispatch inbox modal on UI...';
     };
 
     window.cit_telemetry = () => {
@@ -73,6 +84,7 @@ export function CyberConsoleEasterEgg() {
     window.help = () => {
       return `
 Available Cyber Commands:
+• open_portfolio_inbox()    -> Opens portfolio backend dispatch inbox
 • unlock_classified_vault() -> Decrypts classified lab blueprint modal on screen
 • cit_telemetry()           -> Outputs structured technical operator metrics
 • help()                    -> Displays available operator options
@@ -81,6 +93,7 @@ Available Cyber Commands:
 
     return () => {
       delete window.unlock_classified_vault;
+      delete window.open_portfolio_inbox;
       delete window.cit_telemetry;
       delete window.help;
     };
